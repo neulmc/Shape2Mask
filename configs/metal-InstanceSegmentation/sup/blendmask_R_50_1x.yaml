@@ -1,0 +1,48 @@
+_BASE_: "../Base-BlendMask.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+# lmc below
+  ROI_HEADS:
+    'NUM_CLASSES': 3 # lmc metal
+  FCOS:
+    NUM_CLASSES: 3
+# lmc below
+DATASETS:
+  TRAIN: ("metal_train",) # lmc
+  TEST: ("metal_test",) # lmc
+SOLVER:
+  OPTIMIZER: "ADAM"
+  BASE_LR: 1e-4
+  MAX_ITER: 2000 #2000
+  CHECKPOINT_PERIOD: 1000
+  #IMS_PER_BATCH: 8
+  IMS_PER_BATCH: 8
+  CLIP_GRADIENTS:
+    ENABLED: False
+  LR_SCHEDULER_NAME : "WarmupMultiStepLR"
+  STEPS: []
+  GAMMA: 1.0
+  WARMUP_ITERS: 0
+TEST:
+  EVAL_PERIOD: 1000 #1000
+INPUT:
+  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
+  MIN_SIZE_TEST: 704
+  MAX_SIZE_TEST: 704
+  #MIN_SIZE_TRAIN: (512, 512)
+  #MIN_SIZE_TEST: 512
+  #MAX_SIZE_TEST: 512
+  FORMAT: BGR # image format
+  RANDOM_FLIP: none
+  AUGCOLOR: True
+  RB_L: 0.7
+  RB_H: 1.3
+  RC_L: 0.7
+  RC_H: 1.3
+  RS_L: 0.7
+  RS_H: 1.3
+VERSION: 2
+DATALOADER:
+  NUM_WORKERS: 0

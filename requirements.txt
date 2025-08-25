@@ -1,0 +1,12 @@
+torch==2.1.1
+numpy==1.26.4
+detectron2==0.6
+pycocotools==2.0.8
+torch-geometric==2.6.1
+timm==1.0.15
+matplotlib
+opencv_python
+opencv_python_headless
+scipy
+scikit-image
+torchvision
