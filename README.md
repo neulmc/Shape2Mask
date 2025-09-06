@@ -66,7 +66,7 @@ dataset/
 ```
 #### Important Notes:
 - Image Volume and Resolution: 330 TEM images with 1024×1024 pixel resolution
-- Material Conditions: Includes three heat treatment states with aging times of 1 hour, 6 hours, and 12 hours
+- Material Conditions: Includes three heat treatment states with aging times of 1 hour, 3 hours, and 12 hours
 - Instance Distribution: 14,190 precipitation instances (2,978 horizontal, 8,262 vertical, 2,950 longitudinal)
 - Annotation Type: Bounding box annotations for weakly supervised learning; pixel-level masks for fully supervised setting
 - Spatial Resolution: 1 pixel = 0.16 nanometers
