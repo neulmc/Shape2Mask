@@ -91,7 +91,7 @@ cfg_POINTS_RELA_WEIGHT = 0.1
 #### 2. Full-supervison instance segmentation
 
 ```bash
-python train_sup_net.py -stages fine
+python train_sup_net.py
 ```
 #### 3. Evaluation
 The evaluation runs automatically, generating:
@@ -100,7 +100,7 @@ The evaluation runs automatically, generating:
 (*when setting save_visualization = False*)
 
 
-### Table. Comparison of instance segmentation performance under different supervision settings
+### Table.1 Comparison of instance segmentation performance under different supervision settings
 
 | Method                | AP-Lon | AP-Ver | AP-Hor | AP Score | Supervision Type |
 |:----------------------|:------:|:------:|:------:|:--------:|:----------------:|
