@@ -4,9 +4,14 @@
 [![PyTorch 2.1.1+](https://img.shields.io/badge/pytorch-2.1+-red.svg)](https://pytorch.org/)
 [![Torch-geometric 2.6.1+](https://img.shields.io/badge/geometric-2.6.1+-red.svg)](https://pytorch.org/)
 
+## 📢 News
+- **🚀 Efficiency Optimization**: We've optimized the inference speed with enhanced transformer and RCNN modules (`transformer_fps.py` and `new_rcnn_FPS.py`), removing intermediate head saving and redundant loops for better FPS performance.
+- **🌐 COCO Dataset Adaptation**: Extended Shape2Mask to COCO dataset with 10 categories to validate the effectiveness of our shape prior method across diverse object types. Complete results and checkpoints available at: [Baidu Drive](https://pan.baidu.com/s/1eICgL17O8kMUPHhLKHYklQ?pwd=19kk)
+
 This repository contains the implementation of our paper 
 "*Shape2Mask: A weakly supervised instance segmentation method for aluminum alloy precipitations based on prior shape knowledge*", 
 introducing a novel shape-based instance segmentation framework specifically designed for nanoscale precipitations in TEM images.
+
 
 ## Key Features
 - **Shape-Parameterized Prediction**: Replaces traditional pixel-wise mask generation with a parameterized shape regression paradigm, enabling explicit incorporation of geometric prior knowledge and improved handling of blurry or low-contrast structures in TEM images.
@@ -119,6 +124,46 @@ The evaluation runs automatically, generating:
 | *Shape2Mask (Ours)*   |  28.0  |  52.3  |  19.9  |   33.4   |     Full Mask    |
 
 *Note: "–" indicates AP score < 0.1, considered negligible. All values are reported in percentage (%).*
+
+### Table.2 Instance segmentation AP performance on COCO subset with different shape priors under Box supervision.
+
+| Category         | Vertex-based (32-points) | Ellipse-based (8-points) | Rectangle-based (8-points) | Combined (8-points) |
+|:-----------------|:--------------------:|:------------------------:|:--------------------------:|:-------------------:|
+| 1-bicycle        |         31.2         |         29.4 (↓)         |          24.6 (↓)          |      27.8 (↓)       |
+| 2-frisbee        |         78.6         |         79.7 (↑)         |          79.4 (↑)          |      83.2 (↑)       |
+| 3-sports ball    |         64.0         |         65.3 (↑)         |          65.0 (↑)          |      66.7 (↑)       |
+| 4-apple          |         24.8         |         26.8 (↑)         |          26.9 (↑)          |      28.8 (↑)       |
+| 5-orange         |         38.3         |         40.8 (↑)         |          40.2 (↑)          |      41.1 (↑)       |
+| 6-tv             |         74.0         |         74.3 (↑)         |          75.8 (↑)          |      75.5 (↑)       |
+| 7-laptop         |         70.8         |         65.0 (↓)         |          62.5 (↓)          |      64.9 (↓)       |
+| 8-keyboard       |         66.9         |         67.7 (↑)         |          62.1 (↓)          |      62.2 (↓)       |
+| 9-cell phone     |         46.1         |         44.3 (↓)         |          44.4 (↓)          |      40.0 (↓)       |
+| 10-refrigerator  |         64.5         |         67.3 (↑)         |          70.2 (↑)          |      68.7 (↑)       |
+| **mAP**          |       **55.9**       |       **56.1 (↑)**       |        **55.1 (↓)**        |    **55.9 (-)**     |
+
+*Note: Combined method uses Ellipse prior for categories 1-5 and Rectangle prior for categories 6-10. All values are reported in percentage (%). Arrows indicate performance change compared to BoxSnake baseline.*
+
+### 📊 Analysis
+
+The experimental results across both aluminum alloy TEM dataset and COCO subset demonstrate the value of shape priors in instance segmentation:
+
+- **Shape Prior Benefits for Regular Geometries**: 
+  - **TEM Precipitations**: The regular geometric shapes of precipitates (elliptical, rectangular) in TEM images make them particularly suitable for our shape-parameterized approach, achieving competitive performance with weak supervision (29.5 AP)
+  - **COCO Objects**: For objects with clear geometric characteristics, shape priors provide significant improvements: Frisbee (ellipse-based) achieves 83.2 AP₅₀, substantially outperforming vertex-based approaches, and refrigerator (rectangle-based) reaches 70.2 AP₅₀, showing clear advantage over baselines
+
+- **Supervision Efficiency**: On TEM dataset, our method achieves competitive performance even with weak box supervision, closely approaching fully supervised methods, highlighting the value of incorporating domain knowledge through shape constraints
+
+- **Limitations for Complex Shapes**: For irregular objects like bicycles in COCO dataset, simple shape priors show decreased performance compared to vertex-based approaches, suggesting the need for higher sampling points or more flexible shape representations
+
+### 🔍 Visualization Results
+
+#### Figure 1: Instance Segmentation on Aluminum Alloy TEM Dataset
+![TEM Results](vis/TEM.jpg)
+*Visualization of Shape2Mask predictions on TEM images showing accurate segmentation of nanoscale precipitations with various orientations (longitudinal, vertical, horizontal). *
+
+#### Figure 2: Instance Segmentation on COCO Subset
+![COCO Results](vis/coco.jpg)
+*Shape2Mask predictions on COCO subset categories demonstrating the effectiveness of shape priors for objects with regular geometries (frisbee, refrigerator) and challenges with complex shapes (bicycle, laptop).*
 
 ### Final models
 This is the pre-trained model and log file in our paper. We used this model for evaluation. You can download by:
