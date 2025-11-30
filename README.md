@@ -17,7 +17,6 @@ introducing a novel shape-based instance segmentation framework specifically des
 - **Shape-Parameterized Prediction**: Replaces traditional pixel-wise mask generation with a parameterized shape regression paradigm, enabling explicit incorporation of geometric prior knowledge and improved handling of blurry or low-contrast structures in TEM images.
 - **Differentiable Prior Loss Constraints**: Introduces domain-informed loss functions that directly regularize morphological properties such as aspect ratio and edge straightness, effectively bridging domain knowledge and weakly supervised learning.
 - **Hybrid Architecture with GNN and KAN**: Combines Graph Neural Networks for structured shape feature extraction and Kolmogorov-Arnold Networks for highly nonlinear parameter fitting, enhancing representational flexibility and regression accuracy under limited supervision.
-![coco](https://github.com/user-attachments/assets/b4693629-be2d-4bc4-8fb3-aa6800ebb07d)
 
 ## Installation
 
