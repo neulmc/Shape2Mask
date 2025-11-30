@@ -127,21 +127,22 @@ The evaluation runs automatically, generating:
 
 ### Table.2 Instance segmentation AP performance on COCO subset with different shape priors under Box supervision.
 
-| Category         | Vertex-based (32-points) | Ellipse-based (8-points) | Rectangle-based (8-points) | Combined (8-points) |
-|:-----------------|:--------------------:|:------------------------:|:--------------------------:|:-------------------:|
-| 1-bicycle        |         31.2         |         29.4 (↓)         |          24.6 (↓)          |      27.8 (↓)       |
-| 2-frisbee        |         78.6         |         79.7 (↑)         |          79.4 (↑)          |      83.2 (↑)       |
-| 3-sports ball    |         64.0         |         65.3 (↑)         |          65.0 (↑)          |      66.7 (↑)       |
-| 4-apple          |         24.8         |         26.8 (↑)         |          26.9 (↑)          |      28.8 (↑)       |
-| 5-orange         |         38.3         |         40.8 (↑)         |          40.2 (↑)          |      41.1 (↑)       |
-| 6-tv             |         74.0         |         74.3 (↑)         |          75.8 (↑)          |      75.5 (↑)       |
-| 7-laptop         |         70.8         |         65.0 (↓)         |          62.5 (↓)          |      64.9 (↓)       |
-| 8-keyboard       |         66.9         |         67.7 (↑)         |          62.1 (↓)          |      62.2 (↓)       |
-| 9-cell phone     |         46.1         |         44.3 (↓)         |          44.4 (↓)          |      40.0 (↓)       |
-| 10-refrigerator  |         64.5         |         67.3 (↑)         |          70.2 (↑)          |      68.7 (↑)       |
-| **mAP**          |       **55.9**       |       **56.1 (↑)**       |        **55.1 (↓)**        |    **55.9 (-)**     |
+| Category         | Pure Vertex-based | Ellipse Shape-based | Rectangle Shape-based | Ellipse(1-5) Rectangle(6-10) |
+|:-----------------|:-----------------:|:-------------------:|:---------------------:|:----------------------------:|
+| **1-bicycle**        |       **31.2**        |      **29.4 (↓)**       |       **24.6 (↓)**        |           **27.6 (↓)**           |
+| **2-frisbee**        |       **78.6**        |      **79.7 (↑)**       |       **79.4 (↑)**        |           **81.1 (↑)**           |
+| 3-sports ball    |       64.0        |      65.3 (↑)       |       65.0 (↑)        |           66.8 (↑)           |
+| 4-apple          |       24.8        |      26.8 (↑)       |       26.9 (↑)        |           29.3 (↑)           |
+| 5-orange         |       38.3        |      40.8 (↑)       |       40.2 (↑)        |           42.0 (↑)           |
+| 6-tv             |       74.0        |      74.3 (↑)       |       75.8 (↑)        |           76.7 (↑)           |
+| **7-laptop**         |       **70.8**        |      **65.0 (↓)**       |       **62.5 (↓)**        |           **64.4 (↓)**           |
+| 8-keyboard       |       66.9        |      67.7 (↑)       |       62.1 (↓)        |           64.8 (↓)           |
+| 9-cell phone     |       46.1        |      44.3 (↓)       |       44.4 (↓)        |           44.8 (↓)           |
+| **10-refrigerator**  |       **64.5**        |      **67.3 (↑)**       |       **70.2 (↑)**        |           **69.1 (↑)**           |
+| **mAP**          |     **55.9**      |    **56.1 (-)**     |     **55.1 (↓)**      |         **56.6 (↑)**         |
 
 *Note: Combined method uses Ellipse prior for categories 1-5 and Rectangle prior for categories 6-10. All values are reported in percentage (%). Arrows indicate performance change compared to BoxSnake baseline.*
+
 
 ### 📊 Analysis
 
@@ -149,7 +150,7 @@ The experimental results across both aluminum alloy TEM dataset and COCO subset 
 
 - **Shape Prior Benefits for Regular Geometries**: 
   - **TEM Precipitations**: The regular geometric shapes of precipitates (elliptical, rectangular) in TEM images make them particularly suitable for our shape-parameterized approach, achieving competitive performance with weak supervision (29.5 AP)
-  - **COCO Objects**: For objects with clear geometric characteristics, shape priors provide significant improvements: Frisbee (ellipse-based) achieves 83.2 AP₅₀, substantially outperforming vertex-based approaches, and refrigerator (rectangle-based) reaches 70.2 AP₅₀, showing clear advantage over baselines
+  - **COCO Objects**: For objects with clear geometric characteristics, shape priors provide significant improvements: Frisbee (ellipse-based) achieves 81.1 AP₅₀, substantially outperforming vertex-based approaches, and refrigerator (rectangle-based) reaches 69.1 AP₅₀, showing clear advantage over baselines
 
 - **Supervision Efficiency**: On TEM dataset, our method achieves competitive performance even with weak box supervision, closely approaching fully supervised methods, highlighting the value of incorporating domain knowledge through shape constraints
 
@@ -157,12 +158,13 @@ The experimental results across both aluminum alloy TEM dataset and COCO subset 
 
 ### 🔍 Visualization Results
 
-#### Figure 1: Instance Segmentation on Aluminum Alloy TEM Dataset
+
 ![TEM Results](vis/TEM.jpg)
+#### Figure 1: Instance Segmentation on Aluminum Alloy TEM Dataset
 *Visualization of Shape2Mask predictions on TEM images showing accurate segmentation of nanoscale precipitations with various orientations (longitudinal, vertical, horizontal). *
 
-#### Figure 2: Instance Segmentation on COCO Subset
 ![COCO Results](vis/coco.jpg)
+#### Figure 2: Instance Segmentation on COCO Subset
 *Shape2Mask predictions on COCO subset categories demonstrating the effectiveness of shape priors for objects with regular geometries (frisbee, refrigerator) and challenges with complex shapes (bicycle, laptop).*
 
 ### Final models
